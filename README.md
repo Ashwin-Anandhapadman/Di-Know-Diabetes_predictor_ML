@@ -2,6 +2,7 @@
 
 ## About the project:
 This project is my attempt at developing a machine learning-based web application called Di-Know. It aims to check for the presence of diabetes in patients by taking few key variables as input. The following variables are used as input for he model:
+
     1. Pregnancies: Number of times pregnant
     2. Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test
     3. Insulin: 2-Hour serum insulin (mu U/ml)
