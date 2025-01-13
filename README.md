@@ -9,8 +9,12 @@ This project is my attempt at developing a machine learning-based web applicatio
     5. Age: Age (years)
     5. DiabetesPedigreeFunction: Diabetes pedigree function
 
-The following neural network was designed to predict the presence of diabetes. The dataset for training was obtained from Kaggle(https://www.kaggle.com/datasets/mathchi/diabetes-data-set).
+If any of the above variables are unknown, kindly provide the input as '0' for that variable.
 
+## The machine learning models:
+The ML models used in this study are neural networks, ridge regressor and elastic net regressor. The prediciton results published by these models are taken together into consideration before providing the final result to the user. This is done to ensure that there is no bias in the prediction and more than one model should predict the result before user gets to see it.
+
+The ML models for this project were trained using the Kaggle diabetes dataset: (https://www.kaggle.com/datasets/mathchi/diabetes-data-set).
 This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases. The objective is to predict based on diagnostic measurements whether a patient has diabetes.
 
 
