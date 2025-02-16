@@ -19,7 +19,10 @@ The ML models used in this study are neural networks, SVM and elastic net regres
 The ML models for this project were trained using the Kaggle diabetes dataset: (https://www.kaggle.com/datasets/mathchi/diabetes-data-set).
 This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases. The objective is to predict based on diagnostic measurements whether a patient has diabetes.
 
+## The interface:
 
+
+![2](https://github.com/user-attachments/assets/660be72b-0848-411d-9fda-fe540c25f986)
 
 
 
