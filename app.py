@@ -42,9 +42,9 @@ def predict():
             elastc_prediction = elastc_model.predict(new_data_scaled)
 
             # Convert predictions to binary outcomes (e.g., 0 or 1) for voting
-            ann_result = (ann_prediction > 0.5).astype(int)  # Assuming binary classification
-            svm_result = (svm_prediction > 0.5).astype(int)
-            elastc_result = (elastc_prediction > 0.5).astype(int)
+            ann_result = (ann_prediction > 0.4).astype(int)  # Assuming binary classification
+            svm_result = (svm_prediction > 0.4).astype(int)
+            elastc_result = (elastc_prediction > 0.4).astype(int)
 
             # Aggregate results using majority voting
             final_prediction = np.array([ann_result[0][0], svm_result[0], elastc_result[0]])
