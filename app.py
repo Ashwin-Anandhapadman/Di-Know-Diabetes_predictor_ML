@@ -13,6 +13,7 @@ app = application
 svm_model = pickle.load(open(r'models3/diabetes3_svm.pkl', 'rb'))
 scaler_model = pickle.load(open(r'models3/diabetes3_scaler.pkl', 'rb'))
 elastc_model = pickle.load(open(r'models3/diabetes3_ene.pkl', 'rb'))
+xgb_model = pickle.load(open(r'models3/diabetes3_xgb.pkl', 'rb'))
 ann_model = load_model(r'D:/Ash_ML/ML_web/Diabetes_proj/models3/diabetes3_ann.h5')
 
 @app.route("/") 
@@ -33,21 +34,23 @@ def predict():
             Glucose = float(request.form.get('Glucose', 0.0))
 
             # Prepare data for prediction (reshape into 2D array)
-            new_data = np.array([[Insulin, DiabetesPedigreeFunction, Pregnancies, Age, BMI,BloodPressure, Glucose]])
+            new_data = np.array([[Insulin, DiabetesPedigreeFunction, Pregnancies, Age, BMI, BloodPressure, Glucose]])
             new_data_scaled = scaler_model.transform(new_data)
 
             # Predict using all models
             ann_prediction = ann_model.predict(new_data_scaled)
             svm_prediction = svm_model.predict(new_data_scaled)
             elastc_prediction = elastc_model.predict(new_data_scaled)
+            xgb_prediction = xgb_model.predict_proba(new_data_scaled)[:, 1]  # Get probabilities for the positive class
 
             # Convert predictions to binary outcomes (e.g., 0 or 1) for voting
-            ann_result = (ann_prediction > 0.4).astype(int)  # Assuming binary classification
-            svm_result = (svm_prediction > 0.4).astype(int)
-            elastc_result = (elastc_prediction > 0.4).astype(int)
+            ann_result = (ann_prediction > 0.42).astype(int)   
+            elastc_result = (elastc_prediction > 0.40).astype(int)  
+            xgb_result = (xgb_prediction > 0.30).astype(int)  
+
 
             # Aggregate results using majority voting
-            final_prediction = np.array([ann_result[0][0], svm_result[0], elastc_result[0]])
+            final_prediction = np.array([ann_result[0][0], svm_result[0], elastc_result[0], xgb_result[0]])
             vote_count = np.bincount(final_prediction.astype(int))
             max_vote_class = np.argmax(vote_count)  # Get class with maximum votes
 
@@ -56,10 +59,11 @@ def predict():
 
             return render_template('home_diab.html', results=result_label)
         except Exception as e:
-            return str(e)  # Simple error message for debugging
+            # Log the error and display a user-friendly message
+            print(f"Error: {e}")
+            return render_template('home_diab.html', results="An error occurred during prediction. Please try again.")
     else:
         return render_template("home_diab.html")
-
 
 if __name__ == "__main__": 
     app.run(host="0.0.0.0", debug=True)
