@@ -22,7 +22,8 @@ This dataset is originally from the National Institute of Diabetes and Digestive
 ## The interface:
 
 
-![2](https://github.com/user-attachments/assets/660be72b-0848-411d-9fda-fe540c25f986)
+<img width="967" height="495" alt="image" src="https://github.com/user-attachments/assets/b12c99e4-deb6-41b0-9e81-2df3f6767cbe" />
+
 
 
 
