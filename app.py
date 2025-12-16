@@ -10,7 +10,7 @@ application = Flask(__name__)
 app = application
 
 # Load models with proper handling for custom metrics if needed
-svm_model = pickle.load(open(r'models3/diabetes3_svm.pkl', 'rb'))
+#svm_model = pickle.load(open(r'models3/diabetes3_svm.pkl', 'rb'))
 scaler_model = pickle.load(open(r'models3/diabetes3_scaler.pkl', 'rb'))
 lr_model = pickle.load(open(r'models3/diabetes3_lr.pkl', 'rb'))
 xgb_model = pickle.load(open(r'models3/diabetes3_xgb.pkl', 'rb'))
@@ -41,7 +41,7 @@ def predict():
 
       
             ann_prediction = ann_model.predict(new_data_scaled)
-            svm_prediction = svm_model.predict(new_data_scaled)
+            #svm_prediction = svm_model.predict(new_data_scaled)
             lr_prediction = lr_model.predict_proba(new_data_scaled)[:, 1] 
             xgb_prediction = xgb_model.predict_proba(new_data_scaled)[:, 1]  
 
@@ -49,9 +49,9 @@ def predict():
             ann_result = (ann_prediction > 0.55).astype(int)   
             lr_result = (lr_prediction > 0.43).astype(int)  
             xgb_result = (xgb_prediction > 0.50).astype(int)  
-            svm_result = svm_prediction.astype(int)
+            #svm_result = svm_prediction.astype(int)
 
-            final_prediction = np.array([ann_result[0][0], svm_result[0], lr_result[0], xgb_result[0]])
+            final_prediction = np.array([ann_result[0][0], lr_result[0], xgb_result[0]])
             vote_count = np.bincount(final_prediction.astype(int))
             max_vote_class = np.argmax(vote_count)  # Get class with maximum votes
 
